@@ -1,0 +1,7 @@
+api com imagens e historia dos personagens, salvar o json e consumir ele 
+https://naruto-api-rsl3.onrender.com/api/v1/characters
+
+pra fazer o fetch
+fetch("https://animechan.xyz/api/random/anime?title=naruto")
+          .then((response) => response.json())
+          .then((quote) => console.log(quote));
