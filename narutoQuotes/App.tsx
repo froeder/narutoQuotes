@@ -7,6 +7,7 @@ import {
   Image,
   ActivityIndicator,
   Button,
+  ImageBackground,
 } from "react-native";
 
 export default function App() {
@@ -26,7 +27,6 @@ export default function App() {
       .then((response) => response.json())
       .then((data) => {
         character = data;
-        // setImage(data[0].images[0]);
       })
       .catch((error) => {
         console.log("Error:", error);
@@ -49,7 +49,6 @@ export default function App() {
       const quote = await response.json();
       const character = await getCharacter(quote.character);
       if (character) {
-        console.log(character);
         setLoading(false);
         setImage(character.images[0]);
       }
@@ -62,32 +61,53 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
+    // <View style={styles.container}>
+    <ImageBackground
+      source={require("./assets/background.jpg")}
+      resizeMode="cover"
+      imageStyle={{ opacity: 0.6 }}
+      width={500}
+      height={500}
+      style={styles.container}
+    >
       {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="#E67C31" />
       ) : (
         <>
-          {image && (
-            <Image
-              style={{ width: 200, height: 200 }}
-              source={{ uri: image }}
-            />
-          )}
-          <Text>{quote.quote}</Text>
-          <Text>{quote.character}</Text>
+          {image && <Image style={styles.image} source={{ uri: image }} />}
+          <Text style={styles.quote}>{quote.quote}</Text>
+          <Text style={styles.character}>{quote.character}</Text>
         </>
       )}
-      <Button title="Get Random Quote" onPress={fetchRandomQuote} />
+      <Button
+        color={"#272226"}
+        title="Gerar nova frase"
+        onPress={fetchRandomQuote}
+      />
+      <Button color={"#272226"} title="Copiar" onPress={fetchRandomQuote} />
       <StatusBar style="auto" />
-    </View>
+    </ImageBackground>
+    // </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    padding: 10,
+  },
+  character: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  quote: {
+    fontSize: 17,
+  },
+  image: {
+    width: 200,
+    height: 200,
+    marginBottom: 10,
   },
 });

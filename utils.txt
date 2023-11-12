@@ -5,3 +5,7 @@ pra fazer o fetch
 fetch("https://animechan.xyz/api/random/anime?title=naruto")
           .then((response) => response.json())
           .then((quote) => console.log(quote));
+
+cores #E67C31
+#2E5394
+#272226
